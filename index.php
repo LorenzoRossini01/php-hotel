@@ -22,7 +22,7 @@ include('./data.php')
         <h2>Filtri</h2>
 
         
-        <form action="./data.php" method="get">
+        <form method="get">
             <div class="input-group">
                 <input type="checkbox" name="parking_filter" id="parking-filter" class="form-check-input me-2">
                 <label for="parking-filter" class="form-label">Parcheggio</label>
@@ -32,7 +32,6 @@ include('./data.php')
                 <input type="range" name="vote_filter" id="vote-filter" min="1" max="5" step="1" class="form-range">
                 <label for="vote-filter" class="form-label">Voti da 1 a 5</label>
             </div>
-
             <button  class="btn btn-primary">Filter</button>
         </form>
 
