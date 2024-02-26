@@ -24,13 +24,13 @@ include('./data.php')
         
         <form method="get">
             <div class="input-group">
-                <input type="checkbox" name="parking_filter" id="parking-filter" class="form-check-input me-2">
-                <label for="parking-filter" class="form-label">Parcheggio</label>
+            <input type="range" name="parking_filter" id="parking-filter" min="1" max="3" step="1" class="form-range" >
+                <label for="parking-filter" class="form-label">Parcheggio - Si/No</label>
             </div>
 
             <div class="input-group">
-                <input type="range" name="vote_filter" id="vote-filter" min="1" max="5" step="1" class="form-range">
-                <label for="vote-filter" class="form-label">Voti da 1 a 5</label>
+                <input type="range" name="vote_filter" id="vote-filter" min="1" max="6" step="1" class="form-range" >
+                <label for="vote-filter" class="form-label">Voti da 1 a 5 - sposta il cursore a sinitra per togliere il filtro</label>
             </div>
             <button  class="btn btn-primary">Filter</button>
         </form>
