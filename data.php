@@ -40,6 +40,38 @@
 
     ];
 
+
+
+    
+    
+    $form_sent=!empty($_GET);
+    
+    
+    if($form_sent){
+        
+        $parking_filter=$_GET['parking_filter']??'';
+        $vote_filter=$_GET['vote_filter']??'';
+        
+        if($parking_filter=='on'){
+            $parking_filter=true;
+        } else{
+            $parking_filter=false;
+        };
+        
+            var_dump($parking_filter);
+            var_dump($vote_filter);
+            
+            $filter_hotels=[];
+            foreach ($hotels as $hotel) {
+                if($hotel['parking']==$parking_filter && $hotel['vote'] >= $vote_filter){
+                    $filter_hotels[]=$hotel;
+                }
+            }
+            var_dump($filter_hotels);
+    } else{
+        $filter_hotels = $hotels;
+    }
+    
 ?>
 
 

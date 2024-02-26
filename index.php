@@ -18,31 +18,52 @@ include('./data.php')
 
 </head>
 <body>
+    <div class="container">
+        <h2>Filtri</h2>
+
+        
+        <form action="./data.php" method="get">
+            <div class="input-group">
+                <input type="checkbox" name="parking_filter" id="parking-filter" class="form-check-input me-2">
+                <label for="parking-filter" class="form-label">Parcheggio</label>
+            </div>
+
+            <div class="input-group">
+                <input type="range" name="vote_filter" id="vote-filter" min="1" max="5" step="1" class="form-range">
+                <label for="vote-filter" class="form-label">Voti da 1 a 5</label>
+            </div>
+
+            <button  class="btn btn-primary">Filter</button>
+        </form>
 
 
-<table class="table table-striped table-hover ">
-  <thead>
-    <tr>
-      <th scope="col">Nome</th>
-      <th scope="col">Descrizione</th>
-      <th scope="col">Parcheggio</th>
-      <th scope="col">Voto</th>
-      <th scope="col">Distanza dal centro</th>
-    </tr>
-  </thead>
-  <tbody>
-      <?php foreach($hotels as $hotel):?>
-    <tr>
-      <th scope="row"><?= $hotel['name']?></th>
-      <td><?= $hotel['description']?></td>
-      <td><?= $hotel['parking']?'si':'no'?></td>
-      <td><?= $hotel['vote']. ' '?><i class="fa-solid fa-star fa-sm"></i></td>
-      <td><?= $hotel['distance_to_center']?>km</td>
-    </tr>
-    <?php endforeach;?>
+        <h2>Lista Hotel</h2>
 
-  </tbody>
-</table>
-    
+
+        <table class="table table-striped table-hover ">
+            <thead>
+                <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Descrizione</th>
+                <th scope="col">Parcheggio</th>
+                <th scope="col">Voto</th>
+                <th scope="col">Distanza dal centro</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($filter_hotels as $hotel):?>
+                <tr>
+                <th scope="row"><?= $hotel['name']?></th>
+                <td><?= $hotel['description']?></td>
+                <td><?= $hotel['parking']?'si':'no'?></td>
+                <td><?= $hotel['vote']. ' '?><i class="fa-solid fa-star fa-sm"></i></td>
+                <td><?= $hotel['distance_to_center']?>km</td>
+                </tr>
+                <?php endforeach;?>
+
+            </tbody>
+        </table>
+
+    </div>
 </body>
 </html>
