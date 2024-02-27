@@ -1,44 +1,5 @@
 <?php 
-
-include('./data.php');
-
-$form_sent=!empty($_GET);
-    
-$filter_hotels = $hotels;
-
-if($form_sent){
-    $filter_hotels = [];
-    
-    $parking_filter=$_GET['parking_filter']??'';
-    $vote_filter=$_GET['vote_filter']??'';
-    
-    if($parking_filter==1){
-        $parking_filter='';
-    } elseif($parking_filter==2){
-        $parking_filter=true;
-    }else{
-        $parking_filter=false;
-
-    };
-    
-        // var_dump($parking_filter);
-        // var_dump($vote_filter);
-
-    if($vote_filter>=1 || $parking_filter !='none'){
-
-        
-        foreach ($hotels as $hotel) {
-            if($hotel['parking']==$parking_filter && $hotel['vote'] >= $vote_filter-1){
-                $filter_hotels[]=$hotel;
-            }
-        }
-    } else{
-    $filter_hotels = $hotels;
-    }
-};
-        // var_dump($filter_hotels);
-
-
+include(__DIR__.'/main/init.php');
 ?>
 
 <!DOCTYPE html>
@@ -58,47 +19,51 @@ if($form_sent){
     <div class="container">
         <h2>Filtri</h2>
 
-        
-        <form method="get">
-            <div class="input-group">
-            <input type="range" name="parking_filter" id="parking-filter" min="1" max="3" step="1" class="form-range" >
-                <label for="parking-filter" class="form-label">Parcheggio - Si/No</label>
-            </div>
+        <div class="card p-3">
+            <form method="get">
+                <div class="form-check mb-3">
+                <input type="checkbox" name="parking_filter" id="parking-filter"  class="form-check-input" 
+                <?= $parking_filter ?'checked':''?>
+                >
+                    <label for="parking-filter" class="form-check-label">Con parcheggio </label>
+                </div>
 
-            <div class="input-group">
-                <input type="range" name="vote_filter" id="vote-filter" min="1" max="6" step="1" class="form-range" >
-                <label for="vote-filter" class="form-label">Voti da 1 a 5 - sposta il cursore a sinitra per togliere il filtro</label>
-            </div>
-            <button  class="btn btn-primary">Filter</button>
-        </form>
+                <div class="input-group mb-3">
+                    <input type="range" name="vote_filter" id="vote-filter" min="0" max="5" step="1" value="<?= $vote_filter? $vote_filter:0?>" class="form-range" >
+                    <label for="vote-filter" class="form-label">Voti da 1 a 5 - sposta il cursore a sinitra per togliere il filtro</label>
+                </div>
+                <button  class="btn btn-primary">Filter</button>
+            </form>
+        </div>
 
 
         <h2>Lista Hotel</h2>
 
+        <div class="card p-3">
+            <table class="table table-striped table-hover ">
+                <thead>
+                    <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Descrizione</th>
+                    <th scope="col">Parcheggio</th>
+                    <th scope="col">Voto</th>
+                    <th scope="col">Distanza dal centro</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($hotels as $hotel):?>
+                    <tr>
+                    <th scope="row"><?= $hotel['name']?></th>
+                    <td><?= $hotel['description']?></td>
+                    <td><?= $hotel['parking']?'si':'no'?></td>
+                    <td><?= $hotel['vote']. ' '?><i class="fa-solid fa-star fa-sm"></i></td>
+                    <td><?= $hotel['distance_to_center']?>km</td>
+                    </tr>
+                    <?php endforeach;?>
 
-        <table class="table table-striped table-hover ">
-            <thead>
-                <tr>
-                <th scope="col">Nome</th>
-                <th scope="col">Descrizione</th>
-                <th scope="col">Parcheggio</th>
-                <th scope="col">Voto</th>
-                <th scope="col">Distanza dal centro</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach($filter_hotels as $hotel):?>
-                <tr>
-                <th scope="row"><?= $hotel['name']?></th>
-                <td><?= $hotel['description']?></td>
-                <td><?= $hotel['parking']?'si':'no'?></td>
-                <td><?= $hotel['vote']. ' '?><i class="fa-solid fa-star fa-sm"></i></td>
-                <td><?= $hotel['distance_to_center']?>km</td>
-                </tr>
-                <?php endforeach;?>
-
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
 
     </div>
 </body>
