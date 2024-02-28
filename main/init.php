@@ -6,7 +6,7 @@ $form_sent=!empty($_GET);
     
     
     $parking_filter=isset($_GET['parking_filter'])?true:false;
-    $vote_filter=(int)$_GET['vote_filter']??false;
+    $vote_filter=isset($_GET['vote_filter'])?(int)$_GET['vote_filter']:false;
     
 
     if($parking_filter==true){
